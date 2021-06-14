@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<composite xmlns="http://www.osoa.org/xmlns/sca/1.0"
+  xmlns:frascati="http://frascati.ow2.org/xmlns/sca/1.1"
+  targetNamespace="http://frascati.ow2.org/calcularpi"
+
+  name="brokerRMI">
+
+   <service name="r" promote="control/r">
+    <interface.java interface="java.lang.Runnable" />
+   </service>
+
+  <component name="control">
+    <property name="blockSize">50000000</property>
+    <implementation.java class="org.ow2.frascati.calculopiv1JimenezMartinezFernandez.Control" />
+    <service name="r">
+      <interface.java interface="java.lang.Runnable" />
+    </service>
+  
+  </component>
+
+  <component name="broker">
+    <implementation.java class="org.ow2.frascati.calculopiv1JimenezMartinezFernandez.Broker" />
+
+
+    <service name="ServicioComBroker">
+      <interface.java interface="org.ow2.frascati.calculopiv1JimenezMartinezFernandez.services.ServicioComBroker"></interface.java>
+      <frascati:binding.rmi host="localhost" serviceName="rmiService33" port="1098" />
+	  </service>
+
+    <service name="workers">
+      <interface.java interface="org.ow2.frascati.calculopiv1JimenezMartinezFernandez.services.WorkerService" />
+    </service>
+
+  </component>
+
+  <wire source="control/workers" target="broker/workers"/>
+
+</composite>

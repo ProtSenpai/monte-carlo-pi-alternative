@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<composite xmlns="http://www.osoa.org/xmlns/sca/1.0"
+  xmlns:frascati="http://frascati.ow2.org/xmlns/sca/1.1"
+  targetNamespace="http://frascati.ow2.org/calcularpi"
+
+  name="ServerRMI">
+
+  <service name="r" promote="manager/r"/>
+
+  <component name="manager">
+	  <implementation.java class="org.ow2.frascati.calculopiv1JimenezMartinezFernandez.Manager" />
+
+	  <service name="r">
+      <interface.java interface="java.lang.Runnable" />
+  	</service>
+
+
+  </component>
+
+
+  <component name="server">
+    <implementation.java class="org.ow2.frascati.calculopiv1JimenezMartinezFernandez.ServerImp" />
+    <property name="myServiceUri">rmi://localhost:2002/generarService</property>
+
+    <service name="server2">
+      <interface.java interface="org.ow2.frascati.calculopiv1JimenezMartinezFernandez.Server"></interface.java>
+      <frascati:binding.rmi host="localhost" serviceName="generarService" port="2002" />
+	  </service>
+
+    <service name="r">
+      <interface.java interface="java.lang.Runnable" />
+    </service>
+
+    <reference name="suscriber">
+      <interface.java interface="org.ow2.frascati.calculopiv1JimenezMartinezFernandez.services.ServicioComBroker"></interface.java>
+      <frascati:binding.rmi host="localhost"
+        serviceName="rmiService33" port="1098"/>
+    </reference>
+
+  </component>
+  <wire source="manager/server" target="server/r"/>
+
+</composite>

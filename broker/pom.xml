@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.ow2.frascati.examples</groupId>
+  <artifactId>helloworld-rmi-client</artifactId>
+  <packaging>jar</packaging>
+
+  <name>OW2 FraSCAti Examples: HelloWorld RMI Client</name>
+
+  <parent>
+    <groupId>org.ow2.frascati.examples</groupId>
+    <artifactId>helloworld-rmi-parent</artifactId>
+    <version>1.4</version>
+  </parent>
+
+  <properties>
+    <composite.file>helloworld-rmi-client</composite.file>
+    <service.name>r</service.name>
+    <method.name>run</method.name>
+  </properties>
+
+</project>

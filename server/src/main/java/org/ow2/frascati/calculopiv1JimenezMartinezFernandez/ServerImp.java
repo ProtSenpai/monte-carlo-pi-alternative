@@ -37,6 +37,7 @@ public class ServerImp <T extends Comparable<? super T>> extends UnicastRemoteOb
 				nPuntosDentroDelCirculo++;
 			}	
 		}
+		
 		return nPuntosDentroDelCirculo;
 	}
 

@@ -48,30 +48,24 @@ public class Control<T extends Comparable<? super T>> implements Runnable{
 		System.out.println("... sorter connected");
 		// Etapa 1: sorting
 		long start = System.currentTimeMillis();
-		long init=0;
-	    long end= blockSize;
-		ArrayList<WrapRunnable> runners=new ArrayList();
+		ArrayList<WrapRunnable> runners=new ArrayList<WrapRunnable>();
         int threads=(int)Math.ceil(size/(blockSize*1.0));
 		System.out.println("threads: "+threads);
 		Random r = new Random(seed);
 		ExecutorService executor = Executors.newFixedThreadPool(threads);
 		while (threads-->0) {
 
-			if(end>size){
-				end=size;
-			}
 
-            WrapRunnable runner=new WrapRunnable(server.pedirPuntos(),r.nextInt(2000),blockSize);
-			try {
+            WrapRunnable runner=new WrapRunnable(server.pedirPuntos(),r.nextInt(),blockSize);
+			/*try {
 				Thread.sleep(1000);
 				
 			} catch (Exception e) {
 				//TODO: handle exception
-			}
+			}*/
             runners.add(runner);
 	    	executor.execute(runner);
-			init=end;
-			end+=blockSize;
+			
 
 		}
         executor.shutdown();
@@ -83,9 +77,10 @@ public class Control<T extends Comparable<? super T>> implements Runnable{
 
 		}
         
-		long find = (System.currentTimeMillis()-start)/1000;
+		long find = (System.currentTimeMillis()-start);
 		System.out.println("los valores son" + runners.get(0).getResult()+ "   " + puntosT);
-		System.out.println("Tiempo total: "+(find/60)+" mn con "+(find%60)+" segundos");	
+		System.out.println("  " + find);
+		//System.out.println("Tiempo total: "+(find/60)+" mn con "+(find%60)+" segundos");	
 		double pi = recibirPuntos(puntos, puntosT);
 		System.out.println("el valor pi es: " +  pi);
     }

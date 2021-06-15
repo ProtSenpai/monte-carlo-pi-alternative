@@ -28,6 +28,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.Random;
 import java.util.Arrays;
+import java.io.FileWriter;
 
 
 @Service(Runnable.class)
@@ -61,7 +62,7 @@ public class Control<T extends Comparable<? super T>> implements Runnable{
         }
 	}
 
-    public void prueba(int seed, long puntos){
+    public double prueba(int seed, long puntos){
 
 		long size = puntos;
         System.out.println("waiting for sorter ...");
@@ -104,6 +105,7 @@ public class Control<T extends Comparable<? super T>> implements Runnable{
 		//System.out.println("Tiempo total: "+(find/60)+" mn con "+(find%60)+" segundos");	
 		double pi = recibirPuntos(puntos, puntosT);
 		System.out.println("el valor pi es: " +  pi);
+		return pi;
     }
 
 	public double recibirPuntos(long puntosTotales, long puntosCirculo) {
@@ -155,7 +157,7 @@ public class Control<T extends Comparable<? super T>> implements Runnable{
 			String confName = fields[0];
 			int seed = Integer.parseInt(fields[1]);
 			long ptos = Long.parseLong(fields[2]);
-			pis[i] = prueba(seed, puntos);
+			pis[i] = prueba(seed, ptos);
 			confs[i] = confName;
             System.out.println(Arrays.toString(fields));
 			i++;
